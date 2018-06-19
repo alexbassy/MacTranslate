@@ -14,6 +14,17 @@ class TranslatorViewController: NSViewController {
     @IBOutlet var translationOutput: NSTextField!
     
     @IBOutlet var translateButton: NSButton!
+    
+    @IBOutlet var sourceLanguageSelect: NSPopUpButton!
+    
+    @IBOutlet var targetLanguageSelect: NSPopUpButton!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        let languageNames = TranslatorAPI.getLanguageNames()
+        sourceLanguageSelect.addItems(withTitles: languageNames)
+        targetLanguageSelect.addItems(withTitles: languageNames)
+    }
 }
 
 extension TranslatorViewController {
@@ -28,18 +39,21 @@ extension TranslatorViewController {
 }
 
 extension TranslatorViewController {
-    @IBAction func quit(_ sender: NSButton) {
-        NSApplication.shared.terminate(sender)
-    }
-    
     @IBAction func translate(_ sender: NSButton) {
-        let source = sourceInput.stringValue
-        if source.count > 0 {
-            TranslatorAPI.translate(sourceText: source,
-                                    sourceLang: "en",
-                                    targetLang: "de") { (sourceText, translation) in
-                self.translationOutput.stringValue = translation
+        let sourceText = sourceInput.stringValue
+        let selectedSourceLang = sourceLanguageSelect.titleOfSelectedItem
+        let selectedTargetLang = targetLanguageSelect.titleOfSelectedItem
+        
+        if sourceText.count > 0 {
+            let sourceLangCode = TranslatorAPI.supportedLanguages[selectedSourceLang!] ?? "auto"
+            let targetLangCode = TranslatorAPI.supportedLanguages[selectedTargetLang!] ?? "en"
+            
+            TranslatorAPI.translate(sourceText: sourceText,
+                                    sourceLang: sourceLangCode,
+                                    targetLang: targetLangCode) { (sourceText, translation) in
+                                        self.translationOutput.stringValue = translation
             }
         }
+        
     }
 }

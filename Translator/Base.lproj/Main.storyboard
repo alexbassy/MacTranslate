@@ -690,7 +690,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bFc-n0-RhJ">
-                                <rect key="frame" x="20" y="46" width="440" height="80"/>
+                                <rect key="frame" x="20" y="46" width="440" height="65"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" id="6RQ-41-kDR">
                                     <font key="font" metaFont="systemLight" size="18"/>
@@ -699,7 +699,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JOZ-xo-5G9">
-                                <rect key="frame" x="20" y="136" width="440" height="80"/>
+                                <rect key="frame" x="20" y="121" width="440" height="65"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="border" alignment="left" drawsBackground="YES" id="VzX-IR-jdw">
                                     <font key="font" metaFont="systemLight" size="18"/>
@@ -718,10 +718,41 @@
                                     <action selector="translate:" target="XfG-lQ-9wD" id="Egb-8y-2nU"/>
                                 </connections>
                             </button>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UuD-Oq-cf9">
+                                <rect key="frame" x="18" y="192" width="220" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Source" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pt0-DP-VVr" id="PvV-Vg-V5A">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" title="Title" id="EKg-45-vzg">
+                                        <items>
+                                            <menuItem title="Source" state="on" id="pt0-DP-VVr"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
+                            <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qI6-Uo-nGz">
+                                <rect key="frame" x="248" y="192" width="215" height="26"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <popUpButtonCell key="cell" type="push" title="Target" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="GiC-LZ-ucr" id="BYO-Sl-L61">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="menu"/>
+                                    <menu key="menu" title="Title" id="Dlu-Fm-2cc">
+                                        <items>
+                                            <menuItem title="Target" state="on" id="GiC-LZ-ucr"/>
+                                        </items>
+                                    </menu>
+                                </popUpButtonCell>
+                            </popUpButton>
                         </subviews>
+                        <shadow key="shadow">
+                            <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </shadow>
                     </view>
                     <connections>
                         <outlet property="sourceInput" destination="JOZ-xo-5G9" id="ztB-e4-Ilf"/>
+                        <outlet property="sourceLanguageSelect" destination="UuD-Oq-cf9" id="oac-pb-pju"/>
+                        <outlet property="targetLanguageSelect" destination="qI6-Uo-nGz" id="AEY-JE-LZU"/>
                         <outlet property="translateButton" destination="UZo-hd-MYv" id="G3b-lf-2fx"/>
                         <outlet property="translationOutput" destination="bFc-n0-RhJ" id="PRk-Sk-YYA"/>
                     </connections>
