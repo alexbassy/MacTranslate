@@ -126,9 +126,7 @@ class TranslatorAPI {
         "Zulu": "zu"
     ]
     
-    static func getLanguageNames() -> [String] {
-        return Array(supportedLanguages.keys).sorted()
-    }
+    static let languageNames = [String](supportedLanguages.keys).sorted()
     
     static func translate(sourceText: String,
                           sourceLang: String,

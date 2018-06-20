@@ -21,7 +21,7 @@ class TranslatorViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let languageNames = TranslatorAPI.getLanguageNames()
+        let languageNames = TranslatorAPI.languageNames
         sourceLanguageSelect.addItems(withTitles: languageNames)
         targetLanguageSelect.addItems(withTitles: languageNames)
     }
