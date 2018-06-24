@@ -14,13 +14,8 @@ func encodeURIComponent(_ str: String) -> String? {
     return str.addingPercentEncoding(withAllowedCharacters: characterSet)
 }
 
-struct TranslationResult {
-    let sourceText: String
-    let translatedText: String
-}
-
 class TranslatorAPI {
-    static var supportedLanguages = [
+    static let supportedLanguages = [
         "Afrikaans": "af",
         "Albanian": "sq",
         "Amharic": "am",
@@ -128,9 +123,7 @@ class TranslatorAPI {
     
     static let languageNames = [String](supportedLanguages.keys).sorted()
     
-    static func translate(sourceText: String,
-                          sourceLang: String,
-                          targetLang: String,
+    static func translate(sourceText: String, sourceLang: String, targetLang: String,
                           _ callback: @escaping (String, String) -> Void) {
         
         let query = encodeURIComponent(sourceText)
