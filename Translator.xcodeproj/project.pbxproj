@@ -8,18 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		FABE483A20D5951300DF268C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE483920D5951300DF268C /* AppDelegate.swift */; };
-		FABE483C20D5951300DF268C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE483B20D5951300DF268C /* ViewController.swift */; };
 		FABE483E20D5951500DF268C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FABE483D20D5951500DF268C /* Assets.xcassets */; };
 		FABE484120D5951500DF268C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FABE483F20D5951500DF268C /* Main.storyboard */; };
 		FABE484A20D5991600DF268C /* TranslatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE484920D5991600DF268C /* TranslatorViewController.swift */; };
 		FABE484E20D5A35300DF268C /* EventMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE484D20D5A35300DF268C /* EventMonitor.swift */; };
 		FABE485020D6A57B00DF268C /* TranslationAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FABE484F20D6A57A00DF268C /* TranslationAPI.swift */; };
+		FABE485620DF6E8500DF268C /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FABE485420DF6E8500DF268C /* Model.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FABE483620D5951300DF268C /* Translator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Translator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FABE483920D5951300DF268C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		FABE483B20D5951300DF268C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FABE483D20D5951500DF268C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FABE484020D5951500DF268C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FABE484220D5951500DF268C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -27,6 +26,7 @@
 		FABE484920D5991600DF268C /* TranslatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslatorViewController.swift; sourceTree = "<group>"; };
 		FABE484D20D5A35300DF268C /* EventMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMonitor.swift; sourceTree = "<group>"; };
 		FABE484F20D6A57A00DF268C /* TranslationAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TranslationAPI.swift; sourceTree = "<group>"; };
+		FABE485520DF6E8500DF268C /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,9 +62,9 @@
 				FABE483920D5951300DF268C /* AppDelegate.swift */,
 				FABE484F20D6A57A00DF268C /* TranslationAPI.swift */,
 				FABE484920D5991600DF268C /* TranslatorViewController.swift */,
-				FABE483B20D5951300DF268C /* ViewController.swift */,
 				FABE483D20D5951500DF268C /* Assets.xcassets */,
 				FABE483F20D5951500DF268C /* Main.storyboard */,
+				FABE485420DF6E8500DF268C /* Model.xcdatamodeld */,
 				FABE484D20D5A35300DF268C /* EventMonitor.swift */,
 				FABE484220D5951500DF268C /* Info.plist */,
 				FABE484320D5951500DF268C /* Translator.entitlements */,
@@ -148,8 +148,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				FABE484E20D5A35300DF268C /* EventMonitor.swift in Sources */,
-				FABE483C20D5951300DF268C /* ViewController.swift in Sources */,
 				FABE483A20D5951300DF268C /* AppDelegate.swift in Sources */,
+				FABE485620DF6E8500DF268C /* Model.xcdatamodeld in Sources */,
 				FABE485020D6A57B00DF268C /* TranslationAPI.swift in Sources */,
 				FABE484A20D5991600DF268C /* TranslatorViewController.swift in Sources */,
 			);
@@ -344,6 +344,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FABE485420DF6E8500DF268C /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FABE485520DF6E8500DF268C /* Model.xcdatamodel */,
+			);
+			currentVersion = FABE485520DF6E8500DF268C /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FABE482E20D5951300DF268C /* Project object */;
 }
