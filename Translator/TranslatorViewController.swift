@@ -9,21 +9,23 @@
 import Cocoa
 
 class TranslatorViewController: NSViewController {
-    @IBOutlet var sourceInput: NSTextField!
+    @IBOutlet var sourceInput: NSTextField?
     
-    @IBOutlet var translationOutput: NSTextField!
+    @IBOutlet var translationOutput: NSTextField?
     
-    @IBOutlet var translateButton: NSButton!
+    @IBOutlet var translateButton: NSButton?
     
-    @IBOutlet var sourceLanguageSelect: NSPopUpButton!
+    @IBOutlet var sourceLanguageSelect: NSPopUpButton?
     
-    @IBOutlet var targetLanguageSelect: NSPopUpButton!
+    @IBOutlet var targetLanguageSelect: NSPopUpButton?
+    
+    @IBOutlet var swapLanguageButton: NSPopUpButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let languageNames = TranslatorAPI.languageNames
-        sourceLanguageSelect.addItems(withTitles: languageNames)
-        targetLanguageSelect.addItems(withTitles: languageNames)
+        sourceLanguageSelect?.addItems(withTitles: languageNames)
+        targetLanguageSelect?.addItems(withTitles: languageNames)
     }
 }
 
@@ -40,18 +42,23 @@ extension TranslatorViewController {
 
 extension TranslatorViewController {
     @IBAction func translate(_ sender: NSButton) {
-        let sourceText = sourceInput.stringValue
-        let selectedSourceLang = sourceLanguageSelect.titleOfSelectedItem
-        let selectedTargetLang = targetLanguageSelect.titleOfSelectedItem
+        let selectedSourceLang = sourceLanguageSelect?.titleOfSelectedItem
+        let selectedTargetLang = targetLanguageSelect?.titleOfSelectedItem
         
-        if sourceText.count > 0 {
+        guard let sourceText = sourceInput?.stringValue.trimmingCharacters(in: .whitespaces)
+            else {
+                print("Need to enter some text, silly")
+                return
+            }
+        
+        if sourceText.count > 1 {
             let sourceLangCode = TranslatorAPI.supportedLanguages[selectedSourceLang!] ?? "auto"
             let targetLangCode = TranslatorAPI.supportedLanguages[selectedTargetLang!] ?? "en"
             
             TranslatorAPI.translate(sourceText: sourceText,
                                     sourceLang: sourceLangCode,
-                                    targetLang: targetLangCode) { (sourceText, translation) in
-                                        self.translationOutput.stringValue = translation
+                                    targetLang: targetLangCode) { [weak self] (sourceText, translation) in
+                                        self?.translationOutput?.stringValue = translation
             }
         }
         
