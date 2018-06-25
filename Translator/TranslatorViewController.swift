@@ -29,11 +29,14 @@ class TranslatorViewController: NSViewController {
         targetLanguageSelect?.addItems(withTitles: languageNames)
     }
     
-    func didReceiveTranslation(_ response: TranslationResponse) {
-        translationOutput?.stringValue = response.translation
-        print("Translated from \(response.sourceLanguage)")
-        if sourceLanguageSelect?.titleOfSelectedItem == TranslatorAPI.AUTO_LANGUAGE {
-          self.sourceLanguageSelect?.selectedItem?.title = "\(TranslatorAPI.AUTO_LANGUAGE) (\( response.sourceLanguage))"
+    func didReceiveTranslation(_ translation: Translation?) {
+        if let translation = translation {
+            translationOutput?.stringValue = translation.translation
+            if sourceLanguageSelect?.titleOfSelectedItem == TranslatorAPI.AUTO_LANGUAGE {
+                if let sourceLanguageName = TranslatorAPI.getLanguageNameByCode(translation.src) {
+                    self.sourceLanguageSelect?.selectedItem?.title = "\(TranslatorAPI.AUTO_LANGUAGE) (\(sourceLanguageName))"
+                }
+            }
         }
     }
 }
@@ -66,8 +69,8 @@ extension TranslatorViewController {
             
             TranslatorAPI.translate(sourceText: sourceText,
                                     sourceLang: sourceLangCode,
-                                    targetLang: targetLangCode) { [weak self] (response) in
-                                        self?.didReceiveTranslation(response)
+                                    targetLang: targetLangCode) { [weak self] (translation) in
+                                        self?.didReceiveTranslation(translation)
             }
         }
         
@@ -79,7 +82,7 @@ extension TranslatorViewController {
                 return
         }
         
-        if sourceLanguageName != TranslatorAPI.AUTO_LANGUAGE {
+        if sourceLanguageName == TranslatorAPI.AUTO_LANGUAGE {
             return
         }
         
