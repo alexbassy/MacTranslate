@@ -19,13 +19,22 @@ class TranslatorViewController: NSViewController {
     
     @IBOutlet var targetLanguageSelect: NSPopUpButton?
     
-    @IBOutlet var swapLanguageButton: NSPopUpButton?
+    @IBOutlet var swapLanguageButton: NSButton?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let languageNames = TranslatorAPI.languageNames
+        sourceLanguageSelect?.addItem(withTitle: TranslatorAPI.AUTO_LANGUAGE)
         sourceLanguageSelect?.addItems(withTitles: languageNames)
         targetLanguageSelect?.addItems(withTitles: languageNames)
+    }
+    
+    func didReceiveTranslation(_ response: TranslationResponse) {
+        translationOutput?.stringValue = response.translation
+        print("Translated from \(response.sourceLanguage)")
+        if sourceLanguageSelect?.titleOfSelectedItem == TranslatorAPI.AUTO_LANGUAGE {
+          self.sourceLanguageSelect?.selectedItem?.title = "\(TranslatorAPI.AUTO_LANGUAGE) (\( response.sourceLanguage))"
+        }
     }
 }
 
@@ -49,18 +58,37 @@ extension TranslatorViewController {
             else {
                 print("Need to enter some text, silly")
                 return
-            }
+        }
         
         if sourceText.count > 1 {
-            let sourceLangCode = TranslatorAPI.supportedLanguages[selectedSourceLang!] ?? "auto"
-            let targetLangCode = TranslatorAPI.supportedLanguages[selectedTargetLang!] ?? "en"
+            let sourceLangCode = TranslatorAPI.supportedLanguages[selectedSourceLang!] ?? TranslatorAPI.AUTO_LANGUAGE_CODE
+            let targetLangCode = TranslatorAPI.supportedLanguages[selectedTargetLang!] ?? TranslatorAPI.DEFAULT_TARGET_LANGUAGE
             
             TranslatorAPI.translate(sourceText: sourceText,
                                     sourceLang: sourceLangCode,
-                                    targetLang: targetLangCode) { [weak self] (sourceText, translation) in
-                                        self?.translationOutput?.stringValue = translation
+                                    targetLang: targetLangCode) { [weak self] (response) in
+                                        self?.didReceiveTranslation(response)
             }
         }
         
+    }
+    
+    @IBAction func swapSourceAndTargetLanguages(_ sender: NSButton) {
+        guard let sourceLanguageName = sourceLanguageSelect?.titleOfSelectedItem, let targetLanguageName = targetLanguageSelect?.titleOfSelectedItem
+            else {
+                return
+        }
+        
+        if sourceLanguageName != TranslatorAPI.AUTO_LANGUAGE {
+            return
+        }
+        
+        let targetLanguageInSourceSelectIndex = sourceLanguageSelect?.indexOfItem(withTitle: targetLanguageName)
+        let sourceLanguageInTargetSelectIndex = targetLanguageSelect?.indexOfItem(withTitle: sourceLanguageName)
+        
+        if let newSourceIndex = targetLanguageInSourceSelectIndex, let newTargetIndex = sourceLanguageInTargetSelectIndex {
+            sourceLanguageSelect?.selectItem(at: newSourceIndex)
+            targetLanguageSelect?.selectItem(at: newTargetIndex)
+        }
     }
 }

@@ -721,14 +721,10 @@
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UuD-Oq-cf9">
                                 <rect key="frame" x="18" y="192" width="200" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Source" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="pt0-DP-VVr" id="PvV-Vg-V5A">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PvV-Vg-V5A">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" title="Title" id="EKg-45-vzg">
-                                        <items>
-                                            <menuItem title="Source" state="on" id="pt0-DP-VVr"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" title="Title" id="EKg-45-vzg"/>
                                 </popUpButtonCell>
                             </popUpButton>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tzE-20-z5x">
@@ -738,18 +734,17 @@
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="swapSourceAndTargetLanguages:" target="XfG-lQ-9wD" id="fzp-b5-FYR"/>
+                                </connections>
                             </button>
                             <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qI6-Uo-nGz">
                                 <rect key="frame" x="263" y="192" width="200" height="26"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <popUpButtonCell key="cell" type="push" title="Target" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" selectedItem="GiC-LZ-ucr" id="BYO-Sl-L61">
+                                <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="BYO-Sl-L61">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="menu"/>
-                                    <menu key="menu" title="Title" id="Dlu-Fm-2cc">
-                                        <items>
-                                            <menuItem title="Target" state="on" id="GiC-LZ-ucr"/>
-                                        </items>
-                                    </menu>
+                                    <menu key="menu" title="Title" id="Dlu-Fm-2cc"/>
                                 </popUpButtonCell>
                             </popUpButton>
                         </subviews>
@@ -760,6 +755,7 @@
                     <connections>
                         <outlet property="sourceInput" destination="JOZ-xo-5G9" id="ztB-e4-Ilf"/>
                         <outlet property="sourceLanguageSelect" destination="UuD-Oq-cf9" id="oac-pb-pju"/>
+                        <outlet property="swapLanguageButton" destination="tzE-20-z5x" id="ZLV-xU-Xw7"/>
                         <outlet property="targetLanguageSelect" destination="qI6-Uo-nGz" id="AEY-JE-LZU"/>
                         <outlet property="translateButton" destination="UZo-hd-MYv" id="G3b-lf-2fx"/>
                         <outlet property="translationOutput" destination="bFc-n0-RhJ" id="PRk-Sk-YYA"/>

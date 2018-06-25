@@ -14,7 +14,20 @@ func encodeURIComponent(_ str: String) -> String? {
     return str.addingPercentEncoding(withAllowedCharacters: characterSet)
 }
 
+struct TranslationResponse {
+    let translation: String
+    let sourceText: String
+    let sourceLanguage: String
+    let targetLanguage: String
+}
+
 class TranslatorAPI {
+    static let AUTO_LANGUAGE = "Detect language"
+    
+    static let AUTO_LANGUAGE_CODE = "auto"
+    
+    static let DEFAULT_TARGET_LANGUAGE = "en"
+    
     static let supportedLanguages = [
         "Afrikaans": "af",
         "Albanian": "sq",
@@ -123,31 +136,49 @@ class TranslatorAPI {
     
     static let languageNames = [String](supportedLanguages.keys).sorted()
     
+    static func getLanguageNameByCode(_ predicate: String) -> String {
+        let filtered = Array(supportedLanguages.values).filter { (code) -> Bool in
+           return code == predicate
+        }
+        return filtered[0]
+    }
+    
     static func translate(sourceText: String, sourceLang: String, targetLang: String,
-                          _ callback: @escaping (String, String) -> Void) {
+                          _ callback: @escaping (TranslationResponse) -> Void) {
         
         let query = encodeURIComponent(sourceText)
         let url = URL(string: "https://script.google.com/macros/s/AKfycbxVkjTukRRC__Zfellf8uXfH6GUE_vfG1LUHj1tvbcw0OYokZA6/exec?q=\(query!)&pretty=1&target=\(targetLang)&source=\(sourceLang)")
         
         let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            if let data = data {
-                do {
-                    let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                    
-                    if let json = jsonSerialized,
-                        let sourceText = json["sourceText"],
-                        let translation = json["translation"] {
-                        
-                        print(json)
-                        
-                        DispatchQueue.main.async {
-                            callback(sourceText as! String, translation as! String)
-                        }
+            guard let data = data
+                else {
+                    if let error = error {
+                        print(error.localizedDescription)
                     }
-                } catch let error as NSError {
-                    print(error.localizedDescription)
+                    return
+            }
+            
+            do {
+                let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
+                
+                print(jsonSerialized)
+                
+                if let json = jsonSerialized,
+                    let sourceText = json["sourceText"] as? String,
+                    let translation = json["translation"] as? String,
+                    let extras = json["body"] as? [String : Any] {
+                    
+                    let confirmedTargetLang = extras["src"] as! String
+                    
+                    print(extras)
+                    print(confirmedTargetLang)
+
+                    DispatchQueue.main.async {
+                        callback(TranslationResponse(translation: translation, sourceText: sourceText,
+                                                     sourceLanguage: confirmedTargetLang, targetLanguage: targetLang))
+                    }
                 }
-            } else if let error = error {
+            } catch let error as NSError {
                 print(error.localizedDescription)
             }
         }
